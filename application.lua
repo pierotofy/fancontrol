@@ -1,3 +1,54 @@
+List = require('list')
+
+ActionPins = {
+    light=5,
+    stop=6,
+    slow=7,
+    medium=8,
+    high=9
+}
+
+ChannelPins = { 0, 1, 2, 3 }
+
+-- Set PINs
+for _, pin in pairs(ChannelPins) do
+    gpio.mode(pin, gpio.OUTPUT)
+end
+
+for _, pin in pairs(ActionPins) do
+    gpio.mode(pin, gpio.OUTPUT)
+end
+
+
+-- Action queue
+aq = List.new()
+
+parseChannelStr = function(channel)
+    if #channel == 4 then
+        out = {}
+        for idx, v in pairs(ChannelPins) do
+            ch = channel:sub(idx, idx)
+            out[v] = ch == '1' and gpio.HIGH or gpio.LOW
+        end
+        return out
+    end
+end
+
+startQueueMonitor = function()
+    print("Starting queue monitor...")
+    local t = tmr.create()
+    t:register(1000, tmr.ALARM_AUTO, function()
+        pinAct = List.popright(aq)
+        if pinAct ~= nil then
+            for pin, mode in pairs(pinAct) do
+                gpio.write(pin, mode)
+                print(pin, mode)
+            end
+        end
+    end)
+    t:start()
+end
+
 startServer = function()
     print("Setting up server...")
     require("httpserver").createServer(80, function(req, res)
@@ -6,11 +57,53 @@ startServer = function()
 
         local out = ""
         if req.url == "/push" then
-            out = "light\nstop\nslow\nmedium\nhigh"
+            for a,v in pairs(ActionPins) do
+                out = out .. a .. "\n"
+            end
         else
             channel, action = string.match(req.url, "/push/(%d%d%d%d)/(%w+)")
             if channel ~= nil and action ~= nil then
-                print("ACTIVATE! " .. channel)
+                channelPins = parseChannelStr(channel)
+                if channelPins ~= nothing then
+
+                    channelPinAct = {}
+                    actionPinAct = {}
+                    resetActionPinAct = {}
+
+                    for pin, mode in pairs(channelPins) do
+                        channelPinAct[pin] = mode
+                    end
+
+                    -- Check command
+                    actionPin = ActionPins[action]
+                    if actionPin ~= nil then
+
+                        -- Current pin high, others low
+                        actionPinAct[actionPin] = gpio.HIGH
+                        for _, pin in pairs(ActionPins) do
+                            if pin ~= actionPin then
+                                actionPinAct[pin] = gpio.LOW
+                            end
+                        end
+
+                        -- Stop actions afterwards
+                        for _, pin in pairs(ActionPins) do
+                            resetActionPinAct[pin] = gpio.LOW
+                        end
+
+                        for _, pin in pairs(ChannelPins) do
+                            resetActionPinAct[pin] = gpio.LOW
+                        end
+
+                        List.pushleft(aq, channelPinAct)
+                        List.pushleft(aq, actionPinAct)
+                        List.pushleft(aq, resetActionPinAct)
+                    else
+                        out = "Invalid action"
+                    end
+                else
+                    out = "Invalid channel"
+                end
             else
                 if file.open("index.html") then
                     out = file.read()
@@ -22,6 +115,7 @@ startServer = function()
         end
         res:finish(out, 200)
     end)
+    startQueueMonitor()
     print("Ready!")
 end
 
