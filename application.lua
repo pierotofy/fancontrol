@@ -3,7 +3,7 @@ List = require('list')
 ActionPins = {
     light=5,
     stop=6,
-    slow=7,
+    low=7,
     medium=8,
     high=9
 }
@@ -36,85 +36,94 @@ end
 
 startQueueMonitor = function()
     print("Starting queue monitor...")
-    local t = tmr.create()
-    t:register(1000, tmr.ALARM_AUTO, function()
-        pinAct = List.popright(aq)
-        if pinAct ~= nil then
-            for pin, mode in pairs(pinAct) do
-                gpio.write(pin, mode)
-                print(pin, mode)
-            end
-        end
-    end)
-    t:start()
+    -- local t = tmr.create()
+    -- t:register(250, tmr.ALARM_AUTO, function()
+    --     pinAct = List.popright(aq)
+    --     if pinAct ~= nil then
+    --         for pin, mode in pairs(pinAct) do
+    --             gpio.write(pin, mode)
+    --             print(pin, mode)
+    --         end
+    --     end
+    -- end)
+    -- t:start()
 end
 
 startServer = function()
     print("Setting up server...")
-    require("httpserver").createServer(80, function(req, res)
-        -- analyse method and url
-        print("+R", req.method, req.url, node.heap())
+    dofile('httpServer.lua')
+    httpServer:listen(80)
 
-        local out = ""
-        if req.url == "/push" then
-            for a,v in pairs(ActionPins) do
-                out = out .. a .. "\n"
-            end
-        else
-            channel, action = string.match(req.url, "/push/(%d%d%d%d)/(%w+)")
-            if channel ~= nil and action ~= nil then
-                channelPins = parseChannelStr(channel)
-                if channelPins ~= nothing then
-
-                    channelPinAct = {}
-                    actionPinAct = {}
-                    resetActionPinAct = {}
-
-                    for pin, mode in pairs(channelPins) do
-                        channelPinAct[pin] = mode
-                    end
-
-                    -- Check command
-                    actionPin = ActionPins[action]
-                    if actionPin ~= nil then
-
-                        -- Current pin high, others low
-                        actionPinAct[actionPin] = gpio.HIGH
-                        for _, pin in pairs(ActionPins) do
-                            if pin ~= actionPin then
-                                actionPinAct[pin] = gpio.LOW
-                            end
-                        end
-
-                        -- Stop actions afterwards
-                        for _, pin in pairs(ActionPins) do
-                            resetActionPinAct[pin] = gpio.LOW
-                        end
-
-                        for _, pin in pairs(ChannelPins) do
-                            resetActionPinAct[pin] = gpio.LOW
-                        end
-
-                        List.pushleft(aq, channelPinAct)
-                        List.pushleft(aq, actionPinAct)
-                        List.pushleft(aq, resetActionPinAct)
-                    else
-                        out = "Invalid action"
-                    end
-                else
-                    out = "Invalid channel"
-                end
-            else
-                if file.open("index.html") then
-                    out = file.read()
-                    file.close()
-                else
-                    out = "Cannot load index.html"
-                end
-            end
-        end
-        res:finish(out, 200)
+    httpServer:use('/', function(req, res)
+        --res:send("TEST")
+        res:sendFile('index.html')
+        print("+R", node.heap())
     end)
+
+    -- require("httpserver").createServer(80, function(req, res)
+        -- analyse method and url
+        -- print("+R", req.method, req.url, node.heap())
+
+        -- local out = ""
+        -- if req.url == "/push" then
+        --     for a,v in pairs(ActionPins) do
+        --         out = out .. a .. "\n"
+        --     end
+        -- else
+        --     channel, action = string.match(req.url, "/push/(%d%d%d%d)/(%w+)")
+        --     if channel ~= nil and action ~= nil then
+        --         channelPins = parseChannelStr(channel)
+        --         if channelPins ~= nothing then
+
+        --             channelPinAct = {}
+        --             actionPinAct = {}
+        --             resetActionPinAct = {}
+
+        --             for pin, mode in pairs(channelPins) do
+        --                 channelPinAct[pin] = mode
+        --             end
+
+        --             -- Check command
+        --             actionPin = ActionPins[action]
+        --             if actionPin ~= nil then
+
+        --                 -- Current pin high, others low
+        --                 actionPinAct[actionPin] = gpio.HIGH
+        --                 for _, pin in pairs(ActionPins) do
+        --                     if pin ~= actionPin then
+        --                         actionPinAct[pin] = gpio.LOW
+        --                     end
+        --                 end
+
+        --                 -- Stop actions afterwards
+        --                 for _, pin in pairs(ActionPins) do
+        --                     resetActionPinAct[pin] = gpio.LOW
+        --                 end
+
+        --                 for _, pin in pairs(ChannelPins) do
+        --                     resetActionPinAct[pin] = gpio.LOW
+        --                 end
+
+        --                 List.pushleft(aq, channelPinAct)
+        --                 List.pushleft(aq, actionPinAct)
+        --                 List.pushleft(aq, resetActionPinAct)
+        --             else
+        --                 out = "Invalid action"
+        --             end
+        --         else
+        --             out = "Invalid channel"
+        --         end
+        --     else
+        --         if file.open("index.html") then
+        --             out = file.read()
+        --             file.close()
+        --         else
+        --             out = "Cannot load index.html"
+        --         end
+        --     end
+        -- end
+        -- res:finish(out, 200)
+    -- end)
     startQueueMonitor()
     print("Ready!")
 end
