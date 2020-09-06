@@ -36,116 +36,100 @@ end
 
 startQueueMonitor = function()
     print("Starting queue monitor...")
-    -- local t = tmr.create()
-    -- t:register(250, tmr.ALARM_AUTO, function()
-    --     pinAct = List.popright(aq)
-    --     if pinAct ~= nil then
-    --         for pin, mode in pairs(pinAct) do
-    --             gpio.write(pin, mode)
-    --             print(pin, mode)
-    --         end
-    --     end
-    -- end)
-    -- t:start()
+    local t = tmr.create()
+    t:register(250, tmr.ALARM_AUTO, function()
+        pinAct = List.popright(aq)
+        if pinAct ~= nil then
+            for pin, mode in pairs(pinAct) do
+                gpio.write(pin, mode)
+            end
+        end
+    end)
+    t:start()
 end
 
 startServer = function()
     print("Setting up server...")
     dofile('httpServer.lua')
-    httpServer:listen(80)
 
-    httpServer:use('/', function(req, res)
-        --res:send("TEST")
-        res:sendFile('index.html')
-        print("+R", node.heap())
+    httpServer:use('.*', function(req, res)
+        local err = ""
+        local channel, action = string.match(req.path, "(%d%d%d%d)/(%w+)")
+        if channel ~= nil and action ~= nil then
+            local channelPins = parseChannelStr(channel)
+            if channelPins ~= nothing then
+
+                local channelPinAct = {}
+                local actionPinAct = {}
+                local resetActionPinAct = {}
+
+                for pin, mode in pairs(channelPins) do
+                    channelPinAct[pin] = mode
+                end
+
+                -- Check command
+                local actionPin = ActionPins[action]
+                if actionPin ~= nil then
+
+                    -- Current pin high, others low
+                    actionPinAct[actionPin] = gpio.HIGH
+                    for _, pin in pairs(ActionPins) do
+                        if pin ~= actionPin then
+                            actionPinAct[pin] = gpio.LOW
+                        end
+                    end
+
+                    -- Stop actions afterwards
+                    for _, pin in pairs(ActionPins) do
+                        resetActionPinAct[pin] = gpio.LOW
+                    end
+
+                    for _, pin in pairs(ChannelPins) do
+                        resetActionPinAct[pin] = gpio.LOW
+                    end
+
+                    List.pushleft(aq, channelPinAct)
+                    List.pushleft(aq, actionPinAct)
+                    List.pushleft(aq, resetActionPinAct)
+                else
+                    err = "Invalid action"
+                end
+            else
+                err = "Invalid channel"
+            end
+        elseif req.path == "/ping" then
+        else
+            err = "Invalid path"
+        end
+
+        res:type('application/json')
+        if (err == "") then
+            res:send('{"success": true}')
+        else
+            res:send('{"error" : "' .. err .. '"}')
+        end
     end)
 
-    -- require("httpserver").createServer(80, function(req, res)
-        -- analyse method and url
-        -- print("+R", req.method, req.url, node.heap())
+    httpServer:listen(80)
 
-        -- local out = ""
-        -- if req.url == "/push" then
-        --     for a,v in pairs(ActionPins) do
-        --         out = out .. a .. "\n"
-        --     end
-        -- else
-        --     channel, action = string.match(req.url, "/push/(%d%d%d%d)/(%w+)")
-        --     if channel ~= nil and action ~= nil then
-        --         channelPins = parseChannelStr(channel)
-        --         if channelPins ~= nothing then
-
-        --             channelPinAct = {}
-        --             actionPinAct = {}
-        --             resetActionPinAct = {}
-
-        --             for pin, mode in pairs(channelPins) do
-        --                 channelPinAct[pin] = mode
-        --             end
-
-        --             -- Check command
-        --             actionPin = ActionPins[action]
-        --             if actionPin ~= nil then
-
-        --                 -- Current pin high, others low
-        --                 actionPinAct[actionPin] = gpio.HIGH
-        --                 for _, pin in pairs(ActionPins) do
-        --                     if pin ~= actionPin then
-        --                         actionPinAct[pin] = gpio.LOW
-        --                     end
-        --                 end
-
-        --                 -- Stop actions afterwards
-        --                 for _, pin in pairs(ActionPins) do
-        --                     resetActionPinAct[pin] = gpio.LOW
-        --                 end
-
-        --                 for _, pin in pairs(ChannelPins) do
-        --                     resetActionPinAct[pin] = gpio.LOW
-        --                 end
-
-        --                 List.pushleft(aq, channelPinAct)
-        --                 List.pushleft(aq, actionPinAct)
-        --                 List.pushleft(aq, resetActionPinAct)
-        --             else
-        --                 out = "Invalid action"
-        --             end
-        --         else
-        --             out = "Invalid channel"
-        --         end
-        --     else
-        --         if file.open("index.html") then
-        --             out = file.read()
-        --             file.close()
-        --         else
-        --             out = "Cannot load index.html"
-        --         end
-        --     end
-        -- end
-        -- res:finish(out, 200)
-    -- end)
     startQueueMonitor()
-    print("Ready!")
+    print("* READY")
 end
 
 setupPortal = function()
-    print("Setting WIFI")
-    --wifi.mode(wifi.SOFTAP)
     print("Enabling captive portal")
     enduser_setup.start(function()
-        print("Connected to WiFi as:" .. wifi.sta.getip())
+        print("Connected as:" .. wifi.sta.getip())
         startServer()
     end,
     function(err, str)
-        print("enduser_setup: Err #" .. err .. ": " .. str)
+        print("Err #" .. err .. ": " .. str)
     end)
 end
 
 wifi.sta.sethostname("fancontrol")
 
 if (file.exists('eus_params.lua')) then
-    -- Try to connect using existing parameters
-
     p = dofile('eus_params.lua')
 
     wifi.setmode(wifi.STATION)
