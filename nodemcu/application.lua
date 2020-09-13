@@ -8,12 +8,13 @@ ActionPins = {
     high=9
 }
 
-ChannelPins = { 0, 1, 2, 3 }
+ChannelPins = { 0, 1, 2, 4 }
 
 -- Set PINs
 for _, pin in pairs(ChannelPins) do
     gpio.mode(pin, gpio.OUTPUT)
 end
+gpio.write(4, gpio.HIGH)
 
 for _, pin in pairs(ActionPins) do
     gpio.mode(pin, gpio.OUTPUT)
@@ -41,7 +42,11 @@ startQueueMonitor = function()
         pinAct = List.popright(aq)
         if pinAct ~= nil then
             for pin, mode in pairs(pinAct) do
-                gpio.write(pin, mode)
+                if pin ~= 4 then
+                    gpio.write(pin, mode)
+                else
+                    gpio.write(pin, mode == gpio.HIGH and gpio.LOW or gpio.HIGH)
+                end
             end
         end
     end)
@@ -149,6 +154,3 @@ if (file.exists('eus_params.lua')) then
 else
     setupPortal()
 end
-
-
-
