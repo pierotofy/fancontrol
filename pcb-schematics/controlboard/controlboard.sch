@@ -1,0 +1,384 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:R_US RX
+U 1 1 5F5F8096
+P 2500 6100
+F 0 "RX" V 2705 6100 50  0000 C CNN
+F 1 "120" V 2614 6100 50  0000 C CNN
+F 2 "" V 2430 6100 50  0001 C CNN
+F 3 "~" H 2500 6100 50  0001 C CNN
+	1    2500 6100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_US R7
+U 1 1 5F5F907E
+P 2500 4900
+F 0 "R7" V 2295 4900 50  0000 C CNN
+F 1 "120" V 2386 4900 50  0000 C CNN
+F 2 "" V 2430 4900 50  0001 C CNN
+F 3 "~" H 2500 4900 50  0001 C CNN
+	1    2500 4900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R6
+U 1 1 5F5F9499
+P 2500 4300
+F 0 "R6" V 2295 4300 50  0000 C CNN
+F 1 "120" V 2386 4300 50  0000 C CNN
+F 2 "" V 2430 4300 50  0001 C CNN
+F 3 "~" H 2500 4300 50  0001 C CNN
+	1    2500 4300
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R5
+U 1 1 5F5F9847
+P 2500 3700
+F 0 "R5" V 2295 3700 50  0000 C CNN
+F 1 "120" V 2386 3700 50  0000 C CNN
+F 2 "" V 2430 3700 50  0001 C CNN
+F 3 "~" H 2500 3700 50  0001 C CNN
+	1    2500 3700
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US RV
+U 1 1 5F5F9F7D
+P 2500 3100
+F 0 "RV" V 2295 3100 50  0000 C CNN
+F 1 "120" V 2386 3100 50  0000 C CNN
+F 2 "" V 2430 3100 50  0001 C CNN
+F 3 "~" H 2500 3100 50  0001 C CNN
+	1    2500 3100
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R2
+U 1 1 5F5FA5E8
+P 2500 2500
+F 0 "R2" V 2295 2500 50  0000 C CNN
+F 1 "120" V 2386 2500 50  0000 C CNN
+F 2 "" V 2430 2500 50  0001 C CNN
+F 3 "~" H 2500 2500 50  0001 C CNN
+	1    2500 2500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R1
+U 1 1 5F5FA9DD
+P 2500 1900
+F 0 "R1" V 2295 1900 50  0000 C CNN
+F 1 "120" V 2386 1900 50  0000 C CNN
+F 2 "" V 2430 1900 50  0001 C CNN
+F 3 "~" H 2500 1900 50  0001 C CNN
+	1    2500 1900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_US R0
+U 1 1 5F5FAC58
+P 2500 1300
+F 0 "R0" V 2295 1300 50  0000 C CNN
+F 1 "120" V 2386 1300 50  0000 C CNN
+F 2 "" V 2430 1300 50  0001 C CNN
+F 3 "~" H 2500 1300 50  0001 C CNN
+	1    2500 1300
+	0    1    1    0   
+$EndComp
+$Comp
+L Isolator:PC817 OX
+U 1 1 5F5FBD4A
+P 2950 6200
+F 0 "OX" H 2950 6525 50  0000 C CNN
+F 1 "PC817" H 2950 6434 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 6000 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 6200 50  0001 L CNN
+	1    2950 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O7
+U 1 1 5F5FD5D1
+P 2950 5000
+F 0 "O7" H 2950 5325 50  0000 C CNN
+F 1 "PC817" H 2950 5234 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 4800 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 5000 50  0001 L CNN
+	1    2950 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O6
+U 1 1 5F5FDF5E
+P 2950 4400
+F 0 "O6" H 2950 4725 50  0000 C CNN
+F 1 "PC817" H 2950 4634 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 4200 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 4400 50  0001 L CNN
+	1    2950 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O5
+U 1 1 5F5FE510
+P 2950 3800
+F 0 "O5" H 2950 4125 50  0000 C CNN
+F 1 "PC817" H 2950 4034 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 3600 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 3800 50  0001 L CNN
+	1    2950 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O4
+U 1 1 5F5FFBAE
+P 2950 3200
+F 0 "O4" H 2950 3525 50  0000 C CNN
+F 1 "PC817" H 2950 3434 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 3000 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 3200 50  0001 L CNN
+	1    2950 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O2
+U 1 1 5F6004A7
+P 2950 2600
+F 0 "O2" H 2950 2925 50  0000 C CNN
+F 1 "PC817" H 2950 2834 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 2400 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 2600 50  0001 L CNN
+	1    2950 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O1
+U 1 1 5F6009B9
+P 2950 2000
+F 0 "O1" H 2950 2325 50  0000 C CNN
+F 1 "PC817" H 2950 2234 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 1800 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 2000 50  0001 L CNN
+	1    2950 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Isolator:PC817 O0
+U 1 1 5F600EAE
+P 2950 1400
+F 0 "O0" H 2950 1725 50  0000 C CNN
+F 1 "PC817" H 2950 1634 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 1200 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 1400 50  0001 L CNN
+	1    2950 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:ESP NodeMCU
+U 1 1 5F5F5017
+P 1600 5550
+F 0 "NodeMCU" H 1600 7325 50  0000 C CNN
+F 1 "ESP" H 1600 7234 50  0000 C CNN
+F 2 "" H 1600 5550 50  0001 C CNN
+F 3 "" H 1600 5550 50  0001 C CNN
+	1    1600 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F5F6D92
+P 1100 5350
+F 0 "#PWR?" H 1100 5100 50  0001 C CNN
+F 1 "GND" H 1105 5177 50  0000 C CNN
+F 2 "" H 1100 5350 50  0001 C CNN
+F 3 "" H 1100 5350 50  0001 C CNN
+	1    1100 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 5300 1100 5300
+Wire Wire Line
+	1100 5300 1100 5350
+$Comp
+L power:GND #PWR?
+U 1 1 5F60CD63
+P 2650 6300
+F 0 "#PWR?" H 2650 6050 50  0001 C CNN
+F 1 "GND" H 2655 6127 50  0000 C CNN
+F 2 "" H 2650 6300 50  0001 C CNN
+F 3 "" H 2650 6300 50  0001 C CNN
+	1    2650 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 5100 2050 5100
+$Comp
+L Device:R_US R8
+U 1 1 5F5F8BC8
+P 2500 5500
+F 0 "R8" V 2295 5500 50  0000 C CNN
+F 1 "120" V 2386 5500 50  0000 C CNN
+F 2 "" V 2430 5500 50  0001 C CNN
+F 3 "~" H 2500 5500 50  0001 C CNN
+	1    2500 5500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Isolator:PC817 O8
+U 1 1 5F5FCBC4
+P 2950 5600
+F 0 "O8" H 2950 5925 50  0000 C CNN
+F 1 "PC817" H 2950 5834 50  0000 C CNN
+F 2 "Package_DIP:DIP-4_W7.62mm" H 2750 5400 50  0001 L CIN
+F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 5600 50  0001 L CNN
+	1    2950 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F64060A
+P 2650 5700
+F 0 "#PWR?" H 2650 5450 50  0001 C CNN
+F 1 "GND" H 2655 5527 50  0000 C CNN
+F 2 "" H 2650 5700 50  0001 C CNN
+F 3 "" H 2650 5700 50  0001 C CNN
+	1    2650 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 5100 2050 6100
+Wire Wire Line
+	2050 6100 2350 6100
+Wire Wire Line
+	2100 5000 2100 5500
+Wire Wire Line
+	2100 5500 2350 5500
+Wire Wire Line
+	1900 5000 2100 5000
+Wire Wire Line
+	1900 4900 2350 4900
+$Comp
+L power:GND #PWR?
+U 1 1 5F643681
+P 2650 5100
+F 0 "#PWR?" H 2650 4850 50  0001 C CNN
+F 1 "GND" H 2655 4927 50  0000 C CNN
+F 2 "" H 2650 5100 50  0001 C CNN
+F 3 "" H 2650 5100 50  0001 C CNN
+	1    2650 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 4800 2350 4800
+Wire Wire Line
+	2350 4800 2350 4300
+$Comp
+L power:GND #PWR?
+U 1 1 5F64FCD3
+P 2650 4500
+F 0 "#PWR?" H 2650 4250 50  0001 C CNN
+F 1 "GND" H 2655 4327 50  0000 C CNN
+F 2 "" H 2650 4500 50  0001 C CNN
+F 3 "" H 2650 4500 50  0001 C CNN
+	1    2650 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F650072
+P 2650 3900
+F 0 "#PWR?" H 2650 3650 50  0001 C CNN
+F 1 "GND" H 2655 3727 50  0000 C CNN
+F 2 "" H 2650 3900 50  0001 C CNN
+F 3 "" H 2650 3900 50  0001 C CNN
+	1    2650 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 4700 2300 4700
+Wire Wire Line
+	2300 4700 2300 3700
+Wire Wire Line
+	2300 3700 2350 3700
+Wire Wire Line
+	1900 4500 2250 4500
+Wire Wire Line
+	2250 4500 2250 3100
+Wire Wire Line
+	2250 3100 2350 3100
+Wire Wire Line
+	1900 4400 2200 4400
+Wire Wire Line
+	2200 4400 2200 3300
+Wire Wire Line
+	2200 3300 2650 3300
+$Comp
+L power:GND #PWR?
+U 1 1 5F6642E2
+P 2650 2700
+F 0 "#PWR?" H 2650 2450 50  0001 C CNN
+F 1 "GND" H 2655 2527 50  0000 C CNN
+F 2 "" H 2650 2700 50  0001 C CNN
+F 3 "" H 2650 2700 50  0001 C CNN
+	1    2650 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F6647AE
+P 2650 2100
+F 0 "#PWR?" H 2650 1850 50  0001 C CNN
+F 1 "GND" H 2655 1927 50  0000 C CNN
+F 2 "" H 2650 2100 50  0001 C CNN
+F 3 "" H 2650 2100 50  0001 C CNN
+	1    2650 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F664BEA
+P 2650 1500
+F 0 "#PWR?" H 2650 1250 50  0001 C CNN
+F 1 "GND" H 2655 1327 50  0000 C CNN
+F 2 "" H 2650 1500 50  0001 C CNN
+F 3 "" H 2650 1500 50  0001 C CNN
+	1    2650 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2150 2500 2350 2500
+Wire Wire Line
+	1900 4200 2150 4200
+Wire Wire Line
+	2150 4200 2150 2500
+Wire Wire Line
+	1900 4100 2100 4100
+Wire Wire Line
+	2100 4100 2100 1900
+Wire Wire Line
+	2100 1900 2350 1900
+Wire Wire Line
+	1900 4000 2050 4000
+Wire Wire Line
+	2050 4000 2050 1300
+Wire Wire Line
+	2050 1300 2350 1300
+Text Label 7400 7500 0    50   ~ 0
+DL4112FanControl
+$EndSCHEMATC

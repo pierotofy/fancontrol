@@ -61,7 +61,7 @@ class DL4112Fan(FanEntity):
         self._channel = channel
         self._name = name + " Fan"
         self._state = None
-        self._speed = SPEED_OFF
+        self._speed = SPEED_LOW
         self._api = DeviceApi(host, self._channel)
 
     @property
@@ -96,7 +96,7 @@ class DL4112Fan(FanEntity):
     def set_speed(self, speed: str) -> None:
         """Set the speed of the fan."""
         self._speed = speed
-        print("SET SPEED")
+        self._api.turn_on_fan(self._speed)
 
     def turn_off(self, **kwargs) -> None:
         """Turn the fan off."""
@@ -106,7 +106,11 @@ class DL4112Fan(FanEntity):
     def turn_on(self, speed, **kwargs) -> None:
         """Turn the fan on."""
         self._state = True
-        self._speed = speed
+        if speed != SPEED_OFF and speed != None:
+            self._speed = speed
+        else:
+            self._speed = SPEED_LOW
+
         self._api.turn_on_fan(self._speed)
 
 
