@@ -168,28 +168,6 @@ F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 1400 50  00
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:ESP NodeMCU1
-U 1 1 5F5F5017
-P 1500 5550
-F 0 "NodeMCU1" H 1525 7325 50  0000 C CNN
-F 1 "ESP" H 1525 7234 50  0000 C CNN
-F 2 "" H 1500 5550 50  0001 C CNN
-F 3 "" H 1500 5550 50  0001 C CNN
-	1    1500 5550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0101
-U 1 1 5F5F6D92
-P 800 5300
-F 0 "#PWR0101" H 800 5050 50  0001 C CNN
-F 1 "GND" H 805 5127 50  0000 C CNN
-F 2 "" H 800 5300 50  0001 C CNN
-F 3 "" H 800 5300 50  0001 C CNN
-	1    800  5300
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0102
 U 1 1 5F60CD63
 P 2650 6300
@@ -357,7 +335,7 @@ U 1 1 5F68DD5E
 P 4200 4600
 F 0 "P1" H 4250 5217 50  0000 C CNN
 F 1 "RemotePins" H 4250 5126 50  0000 C CNN
-F 2 "" H 4200 4600 50  0001 C CNN
+F 2 "d4112:RemotePins" H 4200 4600 50  0001 C CNN
 F 3 "~" H 4200 4600 50  0001 C CNN
 	1    4200 4600
 	1    0    0    -1  
@@ -488,22 +466,50 @@ F 3 "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf" H 2950 3200 50  00
 	1    2950 3200
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	1150 5300 950  5300
+Text Notes 7050 6900 0    157  ~ 0
+Piero Toffanin - 2020
+$Comp
+L Connector_Generic:ESP NodeMCU1
+U 1 1 5F5F5017
+P 1500 5550
+F 0 "NodeMCU1" H 1525 7325 50  0000 C CNN
+F 1 "ESP" H 1525 7234 50  0000 C CNN
+F 2 "d4112:ESP" H 1500 5550 50  0001 C CNN
+F 3 "" H 1500 5550 50  0001 C CNN
+	1    1500 5550
+	1    0    0    -1  
+$EndComp
 $Comp
 L power:PWR_FLAG #FLG0101
 U 1 1 5F71FBCD
-P 950 5300
-F 0 "#FLG0101" H 950 5375 50  0001 C CNN
-F 1 "PWR_FLAG" H 950 5473 50  0000 C CNN
-F 2 "" H 950 5300 50  0001 C CNN
-F 3 "~" H 950 5300 50  0001 C CNN
-	1    950  5300
+P 1650 5700
+F 0 "#FLG0101" H 1650 5775 50  0001 C CNN
+F 1 "PWR_FLAG" H 1650 5873 50  0000 C CNN
+F 2 "" H 1650 5700 50  0001 C CNN
+F 3 "~" H 1650 5700 50  0001 C CNN
+	1    1650 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 5F5F6D92
+P 1650 5900
+F 0 "#PWR0101" H 1650 5650 50  0001 C CNN
+F 1 "GND" H 1655 5727 50  0000 C CNN
+F 2 "" H 1650 5900 50  0001 C CNN
+F 3 "" H 1650 5900 50  0001 C CNN
+	1    1650 5900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	800  5300 950  5300
-Connection ~ 950  5300
-Text Notes 7050 6900 0    157  ~ 0
-Piero Toffanin - 2020
+	1650 5900 1650 5750
+Wire Wire Line
+	1650 5750 1950 5750
+Wire Wire Line
+	1950 5750 1950 5300
+Wire Wire Line
+	1950 5300 1900 5300
+Connection ~ 1650 5750
+Wire Wire Line
+	1650 5750 1650 5700
 $EndSCHEMATC
