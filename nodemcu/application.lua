@@ -3,8 +3,8 @@ List = require('list')
 ActionPins = {
     light=5,
     stop=6,
-    low=7,
-    medium=8,
+    low=8,
+    medium=7,
     high=9
 }
 
