@@ -56,7 +56,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
         if fanId:
             for fan in fans:
                 name, channel = fan.split(":")
-                if name.lower() == fanId.lower()
+                if name.lower() == fanId.lower():
                     api = DeviceApi(host, channel)
                     api.toggle_brightness()
                     break
