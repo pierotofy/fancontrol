@@ -67,9 +67,15 @@ startServer = function()
                 local channelPinAct = {}
                 local actionPinAct = {}
                 local resetActionPinAct = {}
+                local dimAction = false -- A special type of light action
 
                 for pin, mode in pairs(channelPins) do
                     channelPinAct[pin] = mode
+                end
+
+                if action == "dim" then
+                    dimAction = true
+                    action = "light"
                 end
 
                 -- Check command
@@ -95,6 +101,14 @@ startServer = function()
 
                     List.pushleft(aq, channelPinAct)
                     List.pushleft(aq, actionPinAct)
+
+                    -- Keep button pressed ~3 seconds
+                    if dimAction then
+                        for i = 1,15 do
+                            List.pushleft(aq, actionPinAct)
+                        end
+                    end
+
                     List.pushleft(aq, resetActionPinAct)
                 else
                     err = "Invalid action"
