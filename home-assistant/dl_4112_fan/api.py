@@ -52,3 +52,6 @@ class DeviceApi:
 
     def toggle_light(self):
         return self._get("/%s/light" % (self.channel))
+
+    def toggle_brightness(self):
+        return self._get("/%s/dim" % (self.channel))

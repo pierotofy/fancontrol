@@ -51,6 +51,21 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     add_entities(DL4112Fan(host, fan) for fan in fans)
     add_entities(DL4112LightSwitch(host, fan) for fan in fans)
 
+    def handle_dim(event):
+        fanId = event.data.get('fanId')
+        if fanId:
+            for fan in fans:
+                name, channel = fan.split(":")
+                if name.lower() == fanId.lower()
+                    api = DeviceApi(host, channel)
+                    api.toggle_brightness()
+                    break
+        else:
+            _LOGGER.error("No fan ID")
+
+    # Capture event
+    hass.bus.listen("dl4112fan_dim", handle_dim)
+
 
 class DL4112Fan(FanEntity):
     """DL-4112 Fan Remote."""
