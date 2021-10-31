@@ -4,5 +4,6 @@
   "documentation": "https://github.com/pierotofy/fancontrol",
   "requirements": [],
   "dependencies": [],
-  "codeowners": ["@pierotofy"]
+  "codeowners": ["@pierotofy"],
+  "version": "1.0.0"
 }
